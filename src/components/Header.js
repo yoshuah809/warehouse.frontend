@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -10,6 +10,9 @@ const Header = () => {
         <Container>
           <Link to="/">
             <Navbar.Brand>King's WareHouse </Navbar.Brand>
+          </Link>
+          <Link to="/products">
+            <Navbar.Brand>Products-List </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -21,6 +24,7 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Outlet />
     </header>
   );
 };
