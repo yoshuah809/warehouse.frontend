@@ -1,6 +1,20 @@
 import { Button, Form, Modal } from "react-bootstrap";
+import { useContext, useState } from "react";
+import { ProductContext } from "../context/ProductContext";
+import { WarehouseContext } from "../context/WarehouseContext";
+import moment from "moment";
 
 const AddProductModal = ({ show, onHide, product, handleChange }) => {
+  const { updateProduct } = useContext(ProductContext);
+  const { warehouseData } = useContext(WarehouseContext);
+  const warehouses = warehouseData;
+
+  const handleUpdate = product => {
+    updateProduct(product);
+    onHide();
+    //console.log(product);
+  };
+
   return (
     <Modal show={show}>
       <Modal.Header
@@ -16,8 +30,7 @@ const AddProductModal = ({ show, onHide, product, handleChange }) => {
           placeholder="ID"
           name="_id"
           className="mb-3"
-          // onChange={handleChange}
-          disabled
+          readOnly
           value={product._id}
         />
         <Form.Label htmlFor="code">Code:</Form.Label>
@@ -56,27 +69,39 @@ const AddProductModal = ({ show, onHide, product, handleChange }) => {
           onChange={handleChange}
           className="mb-3"
           value={product.spaceRequired}
+          type="number"
         />
-        <Form.Control
-          placeholder="Category"
-          name="category"
+        <Form.Select
+          placeholder="Warehouse"
+          name="warehouse"
+          value={product.warehouse || null}
+          //onChange={handleChange}
           onChange={handleChange}
           className="mb-3"
-          value={product.warehouse._id}
-        />
+        >
+          {warehouses &&
+            warehouses.map(warehouse => (
+              <option key={warehouse._id} value={warehouse._id}>
+                {warehouse.name}
+              </option>
+            ))}
+          {/* <option value="">Choose one ...</option> */}
+        </Form.Select>
+
         <Form.Control
+          type="text"
           placeholder="Date Created"
           name="createdAt"
-          onChange={handleChange}
           className="mb-3"
-          value={product.createdAt}
+          value={moment(product.createdAt).format("MM/DD/YYYY")}
+          readOnly
         />
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onHide} variant="secondary">
           Close
         </Button>
-        <Button onClick={console.log(product)} variant="primary">
+        <Button onClick={() => handleUpdate(product)} variant="primary">
           Save Changes
         </Button>
       </Modal.Footer>

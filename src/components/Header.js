@@ -14,6 +14,9 @@ const Header = () => {
           <Link to="/products">
             <Navbar.Brand>Products-List </Navbar.Brand>
           </Link>
+          <Link to="/warehouse">
+            <Navbar.Brand>Categories-List </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav ClassName="ml-auto">

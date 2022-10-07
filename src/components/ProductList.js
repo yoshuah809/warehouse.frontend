@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import moment from "moment";
 import { ProductContext } from "../context/ProductContext";
+import moment from "moment";
 import { Table, Button } from "react-bootstrap";
 import AddProductModal from "./AddProductModal";
 
@@ -8,6 +8,7 @@ const ProductList = () => {
   const { productData } = useContext(ProductContext);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
+
   const [product, setProduct] = useState({
     _id: "",
     description: "",
@@ -34,6 +35,7 @@ const ProductList = () => {
       };
     });
   };
+
   return (
     <div className="App mt-4 py-3">
       <div className="container">
@@ -47,7 +49,7 @@ const ProductList = () => {
         <Table className="table  table-default table-striped table-hover responsible">
           <thead bgColor="bg-blue">
             <tr>
-              <th>ID</th>
+              {/* <th>ID</th> */}
               <th>Code</th>
               <th>Description</th>
               <th>Name</th>
@@ -62,14 +64,14 @@ const ProductList = () => {
             {productData &&
               productData.map(product => (
                 <tr key={product._id}>
-                  <td>{product._id.substring(0, 5)}...</td>
+                  {/* <td>{product._id}</td> */}
                   <td>{product.code}</td>
                   <td>{product.description}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
                   <td>{product.spaceRequired} SQF</td>
-                  <td>{product.warehouse._id}</td>
-                  <td>{moment(product.createdAt).format("MM/DD/YYY")}</td>
+                  <td>{product.warehouse.name}</td>
+                  <td>{moment(product.createdAt).format("MM/DD/YYYY")}</td>
                   <td>
                     <Button
                       variant="btn btn-outline-success mx-2"
